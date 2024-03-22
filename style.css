@@ -1,0 +1,75 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.board {
+    display: grid;
+    grid-template-columns: repeat(30, 40px);
+    grid-gap: 2px;
+}
+.cell {
+    width: 40px;
+    height: 40px;
+    background-color: #d0d0d0;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 24px;
+}
+.cell[data-value="1"] {
+    color: skyblue;
+}
+.cell[data-value="2"] {
+    color: lightgreen;
+}
+.cell[data-value="3"] {
+    color: crimson;
+}
+.cell[data-value="4"] {
+    color: blue;
+}
+.cell[data-value="5"] {
+    color: brown;
+}
+.cell[data-value="6"] {
+    color: teal;
+}
+.cell[data-value="7"] {
+    color: black;
+}
+.cell[data-value="8"] {
+    color: grey;
+}
+.bomb {
+    background-color: red;
+}
+.open {
+    background-color: #bbb;
+}
+#restartButton {
+    display: block;
+    margin-right: 20px;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+#timer {
+    text-align: center;
+    margin-top: 20px;
+}
+#gameContainer {
+    text-align: center;
+}
+#controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
