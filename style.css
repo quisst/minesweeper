@@ -20,29 +20,37 @@ body {
     font-weight: bold;
     font-size: 24px;
 }
-.cell[data-value="1"] {
+.number1 {
     color: skyblue;
+    text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
-.cell[data-value="2"] {
+.number2 {
     color: lightgreen;
+    text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
-.cell[data-value="3"] {
+.number3 {
     color: crimson;
+    text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
-.cell[data-value="4"] {
+.number4 {
     color: blue;
+    text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
-.cell[data-value="5"] {
+.number5 {
     color: brown;
+    text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
-.cell[data-value="6"] {
+.number6 {
     color: teal;
+    text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
-.cell[data-value="7"] {
+.number7 {
     color: black;
+    text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
-.cell[data-value="8"] {
+.number8 {
     color: grey;
+    text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
 .bomb {
     background-color: red;
