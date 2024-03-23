@@ -97,6 +97,11 @@ function openCell(x, y) {
     const cell = board[y][x];
     const minefield = document.getElementById("minefield");
     const cellElement = minefield.children[y * boardWidth + x];
+    if (
+        cellElement.classList.contains("open") ||
+        cellElement.textContent === "🚩"
+    )
+        return;
     if (firstClick) {
         startTimer();
         firstClick = false;
@@ -106,6 +111,9 @@ function openCell(x, y) {
         revealAllBombs();
         alert("게임 오버!");
         return;
+    }
+    if (cell !== 0) {
+        cellElement.classList.add("number" + cell);
     }
     if (cellElement.classList.contains("open")) return;
     cellElement.classList.add("open");
@@ -146,12 +154,74 @@ function renderBoard() {
 function toggleFlag(x, y) {
     const minefield = document.getElementById("minefield");
     const cellElement = minefield.children[y * boardWidth + x];
+    if (cellElement.classList.contains("open")) return;
     if (cellElement.textContent === "🚩") {
         cellElement.textContent = "";
     } else {
         cellElement.textContent = "🚩";
     }
 }
+
+function checkSurroundingFlags(x, y) {
+    let flaggedCount = 0;
+    for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+            if (dx === 0 && dy === 0) continue;
+            let nx = x + dx,
+                ny = y + dy;
+            if (nx >= 0 && nx < boardWidth && ny >= 0 && ny < boardHeight) {
+                const cellElement =
+                    document.getElementById("minefield").children[
+                        ny * boardWidth + nx
+                    ];
+                if (cellElement.textContent === "🚩") {
+                    flaggedCount++;
+                }
+            }
+        }
+    }
+    return flaggedCount;
+}
+
+function openSurroundingCells(x, y) {
+    for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+            if (dx === 0 && dy === 0) continue;
+            let nx = x + dx,
+                ny = y + dy;
+            if (nx >= 0 && nx < boardWidth && ny >= 0 && ny < boardHeight) {
+                const cellElement =
+                    document.getElementById("minefield").children[
+                        ny * boardWidth + nx
+                    ];
+                if (
+                    !cellElement.textContent.includes("🚩") &&
+                    !cellElement.classList.contains("open")
+                ) {
+                    openCell(nx, ny);
+                }
+            }
+        }
+    }
+}
+
+document.getElementById("minefield").addEventListener("mousedown", (e) => {
+    if (e.target.classList.contains("cell") && e.buttons === 3) {
+        const index = Array.from(e.target.parentNode.children).indexOf(
+            e.target
+        );
+        const x = index % boardWidth;
+        const y = Math.floor(index / boardWidth);
+        const cell = board[y][x];
+        if (
+            typeof cell === "number" &&
+            cell > 0 &&
+            checkSurroundingFlags(x, y) === cell
+        ) {
+            openSurroundingCells(x, y);
+        }
+    }
+});
 
 function revealAllBombs() {
     for (let y = 0; y < boardHeight; y++) {
