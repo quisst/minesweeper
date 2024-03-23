@@ -25,6 +25,26 @@ function initBoard() {
         clearInterval(timerInterval);
         document.getElementById("timer").textContent = "00:00";
     }
+    placeRandomCheck();
+}
+
+function placeRandomCheck() {
+    let emptyCells = [];
+    for (let y = 0; y < boardHeight; y++) {
+        for (let x = 0; x < boardWidth; x++) {
+            if (board[y][x] === 0) {
+                emptyCells.push({ x, y });
+            }
+        }
+    }
+    if (emptyCells.length > 0) {
+        let randomCell =
+            emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        const minefield = document.getElementById("minefield");
+        const cellElement =
+            minefield.children[randomCell.y * boardWidth + randomCell.x];
+        cellElement.textContent = "✔️";
+    }
 }
 
 function startTimer() {
