@@ -14,7 +14,7 @@ body {
     width: 40px;
     height: 40px;
     background-color: #d0d0d0;
-    text-align: center;
+    justify-content: center;
     line-height: 40px;
     cursor: pointer;
     font-weight: bold;
@@ -57,6 +57,34 @@ body {
 }
 .open {
     background-color: #bbb;
+}
+#easy {
+    justify-content: center;
+    width: 400px;
+    height: 160px;
+    font-size: 50px;
+    background-color: #3ac4fb;
+}
+#medium {
+    justify-content: center;
+    width: 400px;
+    height: 160px;
+    font-size: 50px;
+    background-color: #99fe56;
+}
+#hard {
+    justify-content: center;
+    width: 400px;
+    height: 160px;
+    font-size: 50px;
+    background-color: #ffaa41;
+}
+#expert {
+    justify-content: center;
+    width: 400px;
+    height: 160px;
+    font-size: 50px;
+    background-color: #fe3c3c;
 }
 #restartButton {
     display: block;

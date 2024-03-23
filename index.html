@@ -6,7 +6,13 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <div id="gameContainer">
+        <div id="difficulty">
+            <button id="easy">초급<br />8*8</button>
+            <button id="medium">중급<br />9*9</button>
+            <button id="hard">고급<br />16*16</button>
+            <button id="expert">전문가<br />30*16</button>
+        </div>
+        <div id="gameContainer" style="display: none">
             <div id="minefield" class="board"></div>
             <div id="controls">
                 <button id="restartButton">게임 재시작</button>

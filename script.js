@@ -1,17 +1,53 @@
-const boardWidth = 30;
-const boardHeight = 16;
-const bombCount = 99;
+let boardWidth;
+let boardHeight;
+let bombCount;
 let board = [];
 let openedCells = 0;
 let timerInterval;
 let firstClick = true;
+const difficultySettings = {
+    easy: { width: 8, height: 8, bombs: 9 },
+    medium: { width: 9, height: 9, bombs: 10 },
+    hard: { width: 16, height: 16, bombs: 40 },
+    expert: { width: 30, height: 16, bombs: 99 },
+};
 
 window.onload = function () {
     initBoard();
+    setupDifficultyButtons();
     document
         .getElementById("restartButton")
         .addEventListener("click", initBoard);
 };
+
+function setDifficulty(level) {
+    const settings = difficultySettings[level];
+    boardWidth = settings.width;
+    boardHeight = settings.height;
+    bombCount = settings.bombs;
+    initBoard();
+    if (level === "easy") {
+        const minefield = document.getElementById("minefield");
+        minefield.style.gridTemplateColumns = "repeat(8, 40px)";
+    } else if (level === "medium") {
+        const minefield = document.getElementById("minefield");
+        minefield.style.gridTemplateColumns = "repeat(9, 40px)";
+    } else if (level === "hard") {
+        const minefield = document.getElementById("minefield");
+        minefield.style.gridTemplateColumns = "repeat(16, 40px)";
+    }
+}
+
+function setupDifficultyButtons() {
+    Object.keys(difficultySettings).forEach((level) => {
+        const button = document.getElementById(level);
+        button.addEventListener("click", () => {
+            setDifficulty(level);
+            document.getElementById("difficulty").style.display = "none";
+            document.getElementById("gameContainer").style.display = "block";
+        });
+    });
+}
 
 function initBoard() {
     board = Array(boardHeight)
@@ -21,6 +57,7 @@ function initBoard() {
     calculateNumbers();
     renderBoard();
     firstClick = true;
+    openedCells = 0;
     if (timerInterval) {
         clearInterval(timerInterval);
         document.getElementById("timer").textContent = "00:00";
@@ -154,6 +191,7 @@ function openCell(x, y) {
         alert("게임 승리!");
     }
 }
+
 function renderBoard() {
     const minefield = document.getElementById("minefield");
     minefield.innerHTML = "";
