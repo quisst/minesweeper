@@ -1,6 +1,7 @@
 let boardWidth;
 let boardHeight;
 let bombCount;
+let remainingBombs;
 let board = [];
 let openedCells = 0;
 let timerInterval;
@@ -19,6 +20,24 @@ window.onload = function () {
         .getElementById("restartButton")
         .addEventListener("click", initBoard);
 };
+
+document.getElementById("minefield").addEventListener("mousedown", (e) => {
+    if (e.target.classList.contains("cell") && e.buttons === 3) {
+        const index = Array.from(e.target.parentNode.children).indexOf(
+            e.target
+        );
+        const x = index % boardWidth;
+        const y = Math.floor(index / boardWidth);
+        const cell = board[y][x];
+        if (
+            typeof cell === "number" &&
+            cell > 0 &&
+            checkSurroundingFlags(x, y) === cell
+        ) {
+            openSurroundingCells(x, y);
+        }
+    }
+});
 
 function setDifficulty(level) {
     const settings = difficultySettings[level];
@@ -58,6 +77,8 @@ function initBoard() {
     renderBoard();
     firstClick = true;
     openedCells = 0;
+    remainingBombs = bombCount;
+    updateRemainingBombs();
     if (timerInterval) {
         clearInterval(timerInterval);
         document.getElementById("timer").textContent = "00:00";
@@ -150,6 +171,12 @@ function renderBoard() {
     }
 }
 
+function updateRemainingBombs() {
+    document.getElementById(
+        "remainingBombs"
+    ).textContent = `남은 폭탄: ${remainingBombs}`;
+}
+
 function openCell(x, y) {
     const cell = board[y][x];
     const minefield = document.getElementById("minefield");
@@ -166,6 +193,7 @@ function openCell(x, y) {
     if (cell === "B") {
         cellElement.classList.add("bomb");
         revealAllBombs();
+        clearInterval(timerInterval);
         alert("게임 오버!");
         return;
     }
@@ -188,6 +216,7 @@ function openCell(x, y) {
         }
     }
     if (openedCells === boardWidth * boardHeight - bombCount) {
+        clearInterval(timerInterval);
         alert("게임 승리!");
     }
 }
@@ -215,9 +244,12 @@ function toggleFlag(x, y) {
     if (cellElement.classList.contains("open")) return;
     if (cellElement.textContent === "🚩") {
         cellElement.textContent = "";
+        remainingBombs++;
     } else {
         cellElement.textContent = "🚩";
+        remainingBombs--;
     }
+    updateRemainingBombs();
 }
 
 function checkSurroundingFlags(x, y) {
@@ -263,24 +295,6 @@ function openSurroundingCells(x, y) {
     }
 }
 
-document.getElementById("minefield").addEventListener("mousedown", (e) => {
-    if (e.target.classList.contains("cell") && e.buttons === 3) {
-        const index = Array.from(e.target.parentNode.children).indexOf(
-            e.target
-        );
-        const x = index % boardWidth;
-        const y = Math.floor(index / boardWidth);
-        const cell = board[y][x];
-        if (
-            typeof cell === "number" &&
-            cell > 0 &&
-            checkSurroundingFlags(x, y) === cell
-        ) {
-            openSurroundingCells(x, y);
-        }
-    }
-});
-
 function revealAllBombs() {
     for (let y = 0; y < boardHeight; y++) {
         for (let x = 0; x < boardWidth; x++) {
@@ -294,6 +308,7 @@ function revealAllBombs() {
             clearInterval(timerInterval);
         }
     }
+    clearInterval(timerInterval);
 }
 
 initBoard();

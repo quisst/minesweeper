@@ -4,12 +4,19 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    position: relative;
 }
+
+#difficulty {
+    text-align: center;
+}
+
 .board {
     display: grid;
     grid-template-columns: repeat(30, 40px);
     grid-gap: 2px;
 }
+
 .cell {
     width: 40px;
     height: 40px;
@@ -20,44 +27,55 @@ body {
     font-weight: bold;
     font-size: 24px;
 }
+
 .number1 {
     color: skyblue;
     text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
+
 .number2 {
     color: lightgreen;
     text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
+
 .number3 {
     color: crimson;
     text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
+
 .number4 {
     color: blue;
     text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
+
 .number5 {
     color: brown;
     text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
+
 .number6 {
     color: teal;
     text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
+
 .number7 {
     color: black;
     text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
+
 .number8 {
     color: grey;
     text-shadow: -2px 0 #000, 0 2px #000, 2px 0 #000, 0 -2px #000;
 }
+
 .bomb {
     background-color: red;
 }
+
 .open {
     background-color: #bbb;
 }
+
 #easy {
     justify-content: center;
     width: 400px;
@@ -65,6 +83,7 @@ body {
     font-size: 50px;
     background-color: #3ac4fb;
 }
+
 #medium {
     justify-content: center;
     width: 400px;
@@ -72,6 +91,7 @@ body {
     font-size: 50px;
     background-color: #99fe56;
 }
+
 #hard {
     justify-content: center;
     width: 400px;
@@ -79,6 +99,7 @@ body {
     font-size: 50px;
     background-color: #ffaa41;
 }
+
 #expert {
     justify-content: center;
     width: 400px;
@@ -86,9 +107,9 @@ body {
     font-size: 50px;
     background-color: #fe3c3c;
 }
+
 #restartButton {
     display: block;
-    margin-right: 20px;
     margin: 20px auto;
     padding: 10px 20px;
     background-color: black;
@@ -96,16 +117,29 @@ body {
     border: none;
     cursor: pointer;
 }
+
 #timer {
     text-align: center;
-    margin-top: 20px;
 }
+
 #gameContainer {
     text-align: center;
 }
+
 #controls {
-    margin-top: 20px;
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+}
+
+#remainingBombs {
+    margin-right: 20px;
+    font-size: 24px;
+    font-weight: bold;
 }
