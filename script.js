@@ -101,7 +101,7 @@ function placeRandomCheck() {
         const minefield = document.getElementById("minefield");
         const cellElement =
             minefield.children[randomCell.y * boardWidth + randomCell.x];
-        cellElement.textContent = "✔️";
+        cellElement.textContent = "✔";
     }
 }
 
