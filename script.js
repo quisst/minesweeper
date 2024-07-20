@@ -6,6 +6,7 @@ let board = [];
 let openedCells = 0;
 let timerInterval;
 let firstClick = true;
+let isGameOver = false;
 const difficultySettings = {
     easy: { width: 8, height: 8, bombs: 9 },
     medium: { width: 9, height: 9, bombs: 10 },
@@ -79,6 +80,7 @@ function initBoard() {
     openedCells = 0;
     remainingBombs = bombCount;
     updateRemainingBombs();
+    isGameOver = false;
     if (timerInterval) {
         clearInterval(timerInterval);
         document.getElementById("timer").textContent = "00:00";
@@ -178,6 +180,7 @@ function updateRemainingBombs() {
 }
 
 function openCell(x, y) {
+    if (isGameOver) return;
     const cell = board[y][x];
     const minefield = document.getElementById("minefield");
     const cellElement = minefield.children[y * boardWidth + x];
@@ -195,6 +198,7 @@ function openCell(x, y) {
         revealAllBombs();
         clearInterval(timerInterval);
         alert("게임 오버!");
+        isGameOver = true;
         return;
     }
     if (cell !== 0) {
